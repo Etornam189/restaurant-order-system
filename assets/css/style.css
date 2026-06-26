@@ -1,0 +1,36 @@
+ body {
+    padding-top: 70px;
+
+}
+
+.navbar{
+    background-color: #000306 !important;
+}
+
+.navbar .navbar-brand{
+    color: #171515 !important;
+    font-weight: 700;
+}
+
+.navbar .nav-link{
+    color: #100d0d !important;
+    font-weight: 500;
+}
+
+.navbar .nav-link:hover{
+    color: #C8A951 !important;
+}
+
+#hero{
+    background: linear-gradient(rgba(30,58,95,0.85), rgba(30,58,95,0.85)),
+                url("../images/hero/restaurant-banner.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 550px;
+
+    display: flex;
+    align-items: center;
+
+    color: white;
+}
