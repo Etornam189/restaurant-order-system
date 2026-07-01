@@ -64,8 +64,8 @@ include 'includes/db.php';
                 </li>
 
                 <li class="nav-item ms-lg-3">
-                    <a href="#" class="btn btn-warning">
-                        Cart (0)
+                   <a href="/restaurant-order-system/cart.php" class="btn btn-warning">
+                       Cart (View Order)
                     </a>
                 </li>
 
@@ -207,157 +207,6 @@ include 'includes/db.php';
 
 <section id="cart" class="py-5 bg-light">
 
-<div class="container">
-
-    <h2 class="text-center mb-4 fw-bold">
-        Your Cart
-    </h2>
-
-    <?php if (!empty($_SESSION['cart'])): ?>
-
-        <div class="table-responsive">
-
-            <table class="table table-bordered align-middle text-center">
-
-                <thead class="table-dark">
-                    <tr>
-                        <th>Item</th>
-                        <th>Price</th>
-                        <th>Qty</th>
-                        <th>Subtotal</th>
-                        <th>Spice</th>
-                        <th>Notes</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-
-                <tbody>
-
-                <?php
-                $total = 0;
-                foreach ($_SESSION['cart'] as $index => $item):
-
-                    $subtotal = $item['price'] * $item['quantity'];
-                    $total += $subtotal;
-                ?>
-
-                <tr>
-                    <td><?php echo $item['name']; ?></td>
-
-                    <td>GHS <?php echo $item['price']; ?></td>
-
-                    <td><?php echo $item['quantity']; ?></td>
-
-                    <td>GHS <?php echo $subtotal; ?></td>
-
-                    <td><?php echo $item['spice']; ?></td>
-
-                    <td><?php echo $item['notes']; ?></td>
-
-                    <td>
-                        <a href="remove_item.php?index=<?php echo $index; ?>" 
-                           class="btn btn-sm btn-danger">
-                            Remove
-                        </a>
-                    </td>
-                </tr>
-
-                <?php endforeach; ?>
-
-                </tbody>
-
-            </table>
-
-        </div>
-
-        <!-- TOTAL + CHECKOUT -->
-        <div class="text-end mt-4">
-
-            <h4 class="fw-bold">
-                Total: GHS <?php echo $total; ?>
-            </h4>
-
-            <a href="checkout.php" class="btn btn-success mt-2">
-                Proceed to Checkout
-            </a>
-
-            <a href="clear_cart.php" class="btn btn-outline-danger mt-2">
-                Clear Cart
-            </a>
-
-        </div>
-
-    <?php else: ?>
-
-        <p class="text-center text-muted">
-            Your cart is empty. Start ordering from the menu above.
-        </p>
-
-    <?php endif; ?>
-
-</div>
-
-</section>
-
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
-
-<script>
-let currentItem = {};
-
-function openOrderModal(id, name, price, image){
-    currentItem = {id, name, price};
-
-    document.getElementById('modalItemName').innerText = name;
-    document.getElementById('modalItemPrice').innerText = "GHS " + price;
-    document.getElementById('modalItemImage').src = image;
-
-    document.getElementById('modalQuantity').value = 1;
-    document.getElementById('modalNotes').value = "";
-
-    let modal = new bootstrap.Modal(document.getElementById('orderModal'));
-    modal.show();
-}
-</script>
-
-<script>
-function addToCart() {
-
-    let quantity = document.getElementById('modalQuantity').value;
-    let notes = document.getElementById('modalNotes').value;
-    let spice = document.getElementById('modalSpice').value;
-
-    let item = {
-        id: currentItem.id,
-        name: currentItem.name,
-        price: currentItem.price,
-        quantity: quantity,
-        notes: notes,
-        spice: spice
-    };
-
-    fetch('cart_add.php', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(item)
-    })
-    .then(res => res.json())
-    .then(data => {
-
-        // close modal
-        let modalEl = document.getElementById('orderModal');
-        let modal = bootstrap.Modal.getInstance(modalEl);
-        modal.hide();
-
-        // show feedback
-        alert("Item added to cart!");
-
-        // reload page so cart UI updates
-        location.reload();
-    });
-}
-</script>
-
 <!-- ORDER MODAL -->
 <div class="modal fade" id="orderModal" tabindex="-1">
   <div class="modal-dialog modal-dialog-centered">
@@ -423,6 +272,96 @@ function addToCart() {
     </div>
   </div>
 </div>
+
+</section>
+
+<div class="toast-container position-fixed top-0 end-0 p-3">
+
+    <div id="cartToast" class="toast align-items-center text-bg-success border-0" role="alert">
+
+        <div class="d-flex">
+
+            <div class="toast-body">
+                Item added to cart successfully!
+            </div>
+
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+let currentItem = {};
+
+function openOrderModal(id, name, price, image){
+    currentItem = {id, name, price};
+
+    document.getElementById('modalItemName').innerText = name;
+    document.getElementById('modalItemPrice').innerText = "GHS " + price;
+    document.getElementById('modalItemImage').src = image;
+
+    document.getElementById('modalQuantity').value = 1;
+    document.getElementById('modalNotes').value = "";
+
+    let modal = new bootstrap.Modal(document.getElementById('orderModal'));
+    modal.show();
+}
+</script>
+
+<script>
+function addToCart() {
+
+    let quantity = document.getElementById('modalQuantity').value;
+    let notes = document.getElementById('modalNotes').value;
+    let spice = document.getElementById('modalSpice').value;
+
+    let item = {
+        id: currentItem.id,
+        name: currentItem.name,
+        price: currentItem.price,
+        quantity: quantity,
+        notes: notes,
+        spice: spice
+    };
+
+    fetch('/restaurant-order-system/cart_add.php', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(item)
+    })
+    .then(res => res.json())
+    .then(data => {
+
+        console.log(data);
+
+        if (data.status === "success") {
+
+            let toastEl = document.getElementById('cartToast');
+            let toast = new bootstrap.Toast(toastEl);
+            toast.show();
+
+            let modalEl = document.getElementById('orderModal');
+            let modal = bootstrap.Modal.getInstance(modalEl);
+            modal.hide();
+
+        } else {
+            alert("Failed to add item");
+        }
+
+    })
+    .catch(error => {
+        console.error(error);
+    });
+}
+</script>
+
+
 
 </body>
 </html>
