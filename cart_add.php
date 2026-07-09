@@ -18,7 +18,8 @@ $item = [
     "price" => $data["price"],
     "quantity" => $data["quantity"],
     "notes" => $data["notes"],
-    "spice" => $data["spice"]
+    "spice" => $data["spice"],
+    "image" => $data["image"]
 ];
 
 $_SESSION['cart'][] = $item;

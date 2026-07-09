@@ -20,6 +20,9 @@ session_start();
 
 <body>
 
+<?php include 'includes/navbar.php'; ?>
+
+
 <div class="container py-5">
 
     <h2 class="fw-bold mb-4 text-center">
@@ -35,6 +38,7 @@ session_start();
                 <thead class="table-dark">
 
                     <tr>
+                        <th>Image</th>
 
                         <th>Item</th>
 
@@ -69,12 +73,45 @@ session_start();
                 ?>
 
                     <tr>
+                        <td>
+                            <?php if (!empty($item['image'])): ?>
+
+                                <img src="/restaurant-order-system/<?php echo htmlspecialchars($item['image']); ?>"
+                                    alt="<?php echo htmlspecialchars($item['name']); ?>"
+                                    class="img-fluid rounded"
+                                    style="width:100px; height:100px; object-fit:cover;">
+
+                            <?php else: ?>
+
+                                <span class="text-muted">
+                                    No Image
+                                </span>
+
+                            <?php endif; ?>
+                        </td>
 
                         <td><?php echo htmlspecialchars($item['name']); ?></td>
 
                         <td><?php echo number_format($item['price'], 2); ?></td>
 
-                        <td><?php echo $item['quantity']; ?></td>
+                        <td>
+                            <a href="update_cart.php?action=decrease&index=<?php echo $index; ?>"
+                            class="btn btn-sm btn-outline-dark">
+                                -
+                            </a>
+
+
+                            <span class="mx-2">
+                                <?php echo $item['quantity']; ?>
+                            </span>
+
+
+                            <a href="update_cart.php?action=increase&index=<?php echo $index; ?>"
+                            class="btn btn-sm btn-outline-dark">
+                                +
+                            </a>
+
+                        </td>
 
                         <td><?php echo number_format($subtotal, 2); ?></td>
 
@@ -117,7 +154,7 @@ session_start();
                 Continue Shopping
             </a>
 
-            <a href="#" class="btn btn-success">
+            <a href="checkout.php" class="btn btn-success">
                 Proceed to Checkout
             </a>
 

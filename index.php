@@ -10,71 +10,10 @@ if (!isset($_SESSION['cart'])) {
 include 'includes/db.php';
 ?>
 
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Restaurant Menu</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="assets/css/style.css">
-</head>
-<body>
+<?php include 'includes/header.php'; ?>
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-danger fixed-top shadow-sm">
-    <div class="container">
+<?php include 'includes/navbar.php'; ?>
 
-        <a class="navbar-brand fw-bold" href="index.php">
-            🍽 SAVORA EATERY
-        </a>
-
-        <button class="navbar-toggler"
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#navbarNav">
-
-            <span class="navbar-toggler-icon"></span>
-
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarNav">
-
-            <ul class="navbar-nav ms-auto">
-
-                <li class="nav-item">
-                    <a class="nav-link active" href="index.php">
-                        Home
-                    </a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" href="#">
-                        Menu
-                    </a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" href="#">
-                        About
-                    </a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" href="#">
-                        Contact
-                    </a>
-                </li>
-
-                <li class="nav-item ms-lg-3">
-                   <a href="/restaurant-order-system/cart.php" class="btn btn-warning">
-                       Cart (View Order)
-                    </a>
-                </li>
-
-            </ul>
-
-        </div>
-
-    </div>
-</nav>
 
 <section id="hero" class="py-5">
 
@@ -300,7 +239,7 @@ include 'includes/db.php';
 let currentItem = {};
 
 function openOrderModal(id, name, price, image){
-    currentItem = {id, name, price};
+    currentItem = {id, name, price, image};
 
     document.getElementById('modalItemName').innerText = name;
     document.getElementById('modalItemPrice').innerText = "GHS " + price;
@@ -327,7 +266,8 @@ function addToCart() {
         price: currentItem.price,
         quantity: quantity,
         notes: notes,
-        spice: spice
+        spice: spice,
+        image: currentItem.image
     };
 
     fetch('/restaurant-order-system/cart_add.php', {
