@@ -19,6 +19,7 @@ $item = [
     "quantity" => $data["quantity"],
     "notes" => $data["notes"],
     "spice" => $data["spice"],
+    "extras" => $data["extras"] ?? [],
     "image" => $data["image"]
 ];
 

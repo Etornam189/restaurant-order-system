@@ -45,7 +45,7 @@
                 <li class="nav-item ms-lg-3">
                    <a href="/restaurant-order-system/cart.php" class="btn btn-warning">
                     Cart (
-                    <?php echo count($_SESSION['cart']); ?>
+                    <?= isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0; ?>
                     )
                 </a>
                 </li>

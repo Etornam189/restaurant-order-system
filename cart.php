@@ -50,6 +50,8 @@ session_start();
 
                         <th>Spice Level</th>
 
+                        <th>Extras</th>
+
                         <th>Notes</th>
 
                         <th>Action</th>
@@ -76,10 +78,10 @@ session_start();
                         <td>
                             <?php if (!empty($item['image'])): ?>
 
-                                <img src="/restaurant-order-system/<?php echo htmlspecialchars($item['image']); ?>"
-                                    alt="<?php echo htmlspecialchars($item['name']); ?>"
+                                <img src="<?php echo ($item['image']) ?>"
+                                    alt="no image"
                                     class="img-fluid rounded"
-                                    style="width:100px; height:100px; object-fit:cover;">
+                                    style="width:200px; height:100px; object-fit:cover;">
 
                             <?php else: ?>
 
@@ -116,6 +118,8 @@ session_start();
                         <td><?php echo number_format($subtotal, 2); ?></td>
 
                         <td><?php echo htmlspecialchars($item['spice']); ?></td>
+
+                        <td><?php echo implode(", ", $item["extras"] ?? []) ?: "None"; ?></td>
 
                         <td><?php echo htmlspecialchars($item['notes']); ?></td>
 

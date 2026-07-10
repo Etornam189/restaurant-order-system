@@ -8,16 +8,6 @@ if (empty($_SESSION['cart'])) {
 ?>
 
 <!DOCTYPE html>
-<?php
-session_start();
-
-if (empty($_SESSION['cart'])) {
-    header("Location: cart.php");
-    exit();
-}
-?>
-
-<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -35,9 +25,111 @@ if (empty($_SESSION['cart'])) {
         Checkout
     </h2>
 
-    <p>This page will collect customer information before placing the order.</p>
+    <h4>Order Summary</h4>
+
+    <?php
+    $total = 0;
+
+    foreach ($_SESSION['cart'] as $item):
+
+        $subtotal = $item['price'] * $item['quantity'];
+        $total += $subtotal;
+    ?>
+
+    <div class="card mb-3">
+        <div class="card-body">
+
+            <h5>
+                <?= $item['name']; ?>
+            </h5>
+
+            <p>
+                Quantity: <?= $item['quantity']; ?>
+            </p>
+
+            <p>
+                Spice: <?= $item['spice']; ?>
+            </p>
+
+            <p>
+                Extras:
+                <?= implode(", ", $item['extras'] ?? []); ?>
+            </p>
+
+            <p>
+                Notes: <?= $item['notes']; ?>
+            </p>
+
+            <p>
+                Subtotal: GHS <?= number_format($subtotal, 2); ?>
+            </p>
+
+        </div>
+    </div>
+
+    <?php endforeach; ?>
+
+
+    <h4>
+        Total: GHS <?= number_format($total, 2); ?>
+    </h4>
+
+    <form action="place_order.php" method="POST">
+        <div class="card mb-4 shadow-sm" style="border: 4px solid #0d6efd;">
+
+            <div class="card-body">
+
+                <h5 class="card-title">
+                    Order Type
+                </h5>
+
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="order_type" value="Dine-in" checked>
+                    <label class="form-check-label">
+                        Dine-in
+                    </label>
+                </div>
+
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="order_type" value="Takeaway">
+                    <label class="form-check-label">
+                        Takeaway
+                    </label>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="card mb-4 shadow-sm" style="border: 4px solid #0d6efd;">
+            <div class="card-body">
+
+                <h5 class="card-title">
+                    🪑 Table Information
+                </h5>
+
+                <p class="text-muted">
+                    Enter the table number you are seated at.
+                </p>
+
+                <label class="form-label fw-bold">
+                    Table Number
+                </label>
+
+                <input type="number" name="table_number" class="form-control" placeholder="e.g. 5" required>
+
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">
+            Place Order
+        </button>
+
+    </form>
 
 </div>
+
+
 
 </body>
 </html>

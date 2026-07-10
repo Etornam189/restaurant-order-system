@@ -179,18 +179,17 @@ include 'includes/db.php';
 
         <!-- Extras -->
         <div class="mb-3">
-          <label class="form-label">Extras</label>
+            <label class="form-label">Extras</label>
 
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="Extra Cheese">
-            <label class="form-check-label">Extra Cheese</label>
-          </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="extras[]" value="Extra Cheese">
+                <label class="form-check-label">Extra Cheese</label>
+            </div>
 
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="Extra Sauce">
-            <label class="form-check-label">Extra Sauce</label>
-          </div>
-
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="extras[]" value="Extra Sauce">
+                <label class="form-check-label">Extra Sauce</label>
+            </div>
         </div>
 
         <!-- Notes -->
@@ -214,7 +213,7 @@ include 'includes/db.php';
 
 </section>
 
-<div class="toast-container position-fixed top-0 end-0 p-3">
+<div class="toast-container position-fixed top-0 end-0 p-3" style="margin-top: 80px; z-index: 1100;">
 
     <div id="cartToast" class="toast align-items-center text-bg-success border-0" role="alert">
 
@@ -259,6 +258,11 @@ function addToCart() {
     let quantity = document.getElementById('modalQuantity').value;
     let notes = document.getElementById('modalNotes').value;
     let spice = document.getElementById('modalSpice').value;
+    let extras = [];
+
+        document.querySelectorAll('input[name="extras[]"]:checked').forEach(function(item) {
+            extras.push(item.value);
+        });
 
     let item = {
         id: currentItem.id,
@@ -267,6 +271,7 @@ function addToCart() {
         quantity: quantity,
         notes: notes,
         spice: spice,
+        extras: extras,
         image: currentItem.image
     };
 
