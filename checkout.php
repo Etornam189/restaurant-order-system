@@ -1,6 +1,8 @@
 <?php
 session_start();
 
+include 'includes/db.php';
+
 if (empty($_SESSION['cart'])) {
     header("Location: cart.php");
     exit();
@@ -18,6 +20,8 @@ if (empty($_SESSION['cart'])) {
 </head>
 
 <body>
+
+<?php include 'includes/navbar.php'; ?>
 
 <div class="container py-5">
 
@@ -116,7 +120,31 @@ if (empty($_SESSION['cart'])) {
                     Table Number
                 </label>
 
-                <input type="number" name="table_number" class="form-control" placeholder="e.g. 5" required>
+                <select name="table_id" class="form-select" required>
+
+                    <option value="">
+                        Select Table
+                    </option>
+
+                    <?php
+
+                    $tableQuery = "SELECT * FROM tables 
+                                WHERE status='Available'
+                                ORDER BY table_number";
+
+                    $tableResult = mysqli_query($conn, $tableQuery);
+
+                    while($table = mysqli_fetch_assoc($tableResult)):
+
+                    ?>
+
+                    <option value="<?= $table['id']; ?>">
+                        Table <?= $table['table_number']; ?>
+                    </option>
+
+                    <?php endwhile; ?>
+
+                </select>
 
             </div>
         </div>

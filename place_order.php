@@ -2,12 +2,17 @@
 
 session_start();
 
+if (empty($_SESSION['cart'])) {
+    header("Location: index.php");
+    exit();
+}
+
 include "includes/db.php";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $order_type = $_POST['order_type'];
-    $table_id = $_POST['table_number'];
+    $table_id = $_POST['table_id'];
 
     $total_amount = 0;
 
@@ -48,8 +53,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         mysqli_query($conn, $item_sql);
     }
 
-    echo "Order placed successfully";
+    unset($_SESSION['cart']);
 
+    header("Location: order_confirmation.php");
+    exit();
     }else{
 
         echo "Error: " . mysqli_error($conn);

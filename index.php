@@ -15,7 +15,7 @@ include 'includes/db.php';
 <?php include 'includes/navbar.php'; ?>
 
 
-<section id="hero" class="py-5">
+<section id="hero" class="hero-section py-5">
 
     <div class="container">
 
@@ -52,7 +52,7 @@ include 'includes/db.php';
 
 </section>
 
-<section id="menu" class="py-5" style="background-color: #FFF8E7;">
+<section id="menu" class="py-5">
 
     <div class="container">
 
@@ -74,7 +74,7 @@ include 'includes/db.php';
 
             <div class="mb-5">
 
-                <h3 class="fw-bold text-primary mb-4 border-bottom pb-2">
+                <h3 class="menu-category-title mb-4 pb-2">
                     <?php echo $category['name']; ?>
                 </h3>
 
@@ -96,7 +96,7 @@ include 'includes/db.php';
 
                         <div class="col-6 col-md-3 mb-4">
 
-                            <div class="card h-100 shadow-sm">
+                            <div class="card menu-card h-100 shadow-sm">
 
                                 <img src="/restaurant-order-system/<?php echo $row['image']; ?>"
                                      class="card-img-top"
@@ -287,18 +287,20 @@ function addToCart() {
 
         if (data.status === "success") {
 
-            let toastEl = document.getElementById('cartToast');
-            let toast = new bootstrap.Toast(toastEl);
-            toast.show();
+    // update cart number in navbar
+    document.getElementById("cartCount").innerText = data.cart.length;
 
-            let modalEl = document.getElementById('orderModal');
-            let modal = bootstrap.Modal.getInstance(modalEl);
-            modal.hide();
+    let toastEl = document.getElementById('cartToast');
+    let toast = new bootstrap.Toast(toastEl);
+    toast.show();
 
-        } else {
-            alert("Failed to add item");
-        }
+    let modalEl = document.getElementById('orderModal');
+    let modal = bootstrap.Modal.getInstance(modalEl);
+    modal.hide();
 
+} else {
+    alert("Failed to add item");
+}
     })
     .catch(error => {
         console.error(error);

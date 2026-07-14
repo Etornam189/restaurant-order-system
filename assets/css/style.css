@@ -1,0 +1,179 @@
+:root {
+    --cream: #FAF7ED;
+    --olive: #252814;
+    --rust: #9D5E16;
+    --dark-rust: #89571D;
+    --white: #FFFFFF;
+}
+
+
+body {
+    background-color: var(--cream);
+    color: var(--olive);
+    padding-top: 80px;
+}
+
+
+/* Navbar */
+
+.navbar {
+    background-color: #E8DCC8 !important;
+    border-bottom: 1px solid rgba(37, 40, 20, 0.15);
+}
+
+.navbar .navbar-brand {
+    color: var(--olive) !important;
+    font-weight: 700;
+}
+
+.navbar .nav-link {
+    color: var(--olive) !important;
+    font-weight: 500;
+}
+
+.navbar .nav-link:hover {
+    color: var(--rust) !important;
+}
+
+.navbar .btn-warning {
+    background-color: var(--rust);
+    border-color: var(--rust);
+    color: var(--white);
+}
+
+.navbar .btn-warning:hover {
+    background-color: var(--dark-rust);
+    border-color: var(--dark-rust);
+}
+
+/* Hero Section */
+
+.hero-section {
+    background-color: #80521F;
+    color: var(--olive);
+    padding: 80px 0;
+}
+
+.hero-section h1 {
+    color: var(--olive);
+    font-weight: 800;
+}
+
+.hero-section p {
+    color: var(--olive);
+    opacity: 0.8;
+}
+
+.hero-section .btn-primary {
+    background-color: var(--rust);
+    border-color: var(--rust);
+    color: var(--white);
+}
+
+.hero-section .btn-primary:hover {
+    background-color: var(--dark-rust);
+    border-color: var(--dark-rust);
+}
+
+.hero-section h1 {
+    font-size: 3.2rem;
+    letter-spacing: -1px;
+}
+
+.hero-section p {
+    max-width: 550px;
+    line-height: 1.7;
+}
+
+
+/* Menu Cards */
+
+.menu-card {
+    background-color: #FFF3DD;
+    border: none;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 8px 20px rgba(37, 40, 20, 0.08);
+}
+
+.menu-card img {
+    height: 220px;
+    object-fit: cover;
+}
+
+.menu-card .card-title {
+    color: var(--olive);
+    font-weight: 700;
+}
+
+.menu-card .card-text {
+    color: var(--olive);
+    opacity: 0.8;
+}
+
+.menu-card .price {
+    color: var(--rust);
+    font-weight: 700;
+}
+
+.menu-card .btn {
+    background-color: var(--rust);
+    border-color: var(--rust);
+    color: var(--white);
+}
+
+.menu-card .btn:hover {
+    background-color: var(--dark-rust);
+    border-color: var(--dark-rust);
+}
+
+#menu {
+    background-color: var(--cream);
+}
+
+#menu {
+    background-color: #dbcaac !important;
+}
+
+
+/* Food Cards */
+
+.menu-card {
+    background-color: #FFFFFF;
+    border: none;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(37, 40, 20, 0.12);
+    transition: transform 0.3s ease;
+}
+
+.menu-card:hover {
+    transform: translateY(-6px);
+}
+
+.menu-card .card-title {
+    color: var(--olive);
+    font-weight: 700;
+}
+
+.menu-card .card-text {
+    color: var(--olive);
+    opacity: 0.75;
+}
+
+.menu-card .price {
+    color: var(--rust);
+    font-weight: 700;
+}
+
+/* Menu Category Titles */
+
+.menu-category-title {
+    color: var(--olive);
+    font-size: 1.8rem;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    border-bottom: 2px solid var(--rust);
+    display: inline-block;
+    padding-bottom: 8px;
+}
