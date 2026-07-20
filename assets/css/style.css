@@ -14,10 +14,10 @@ body {
 }
 
 
-/* Navbar */
+/* Navbar 5D6346 */
 
 .navbar {
-    background-color: #E8DCC8 !important;
+    background-color: #635346 !important;
     border-bottom: 1px solid rgba(37, 40, 20, 0.15);
 }
 
@@ -27,7 +27,7 @@ body {
 }
 
 .navbar .nav-link {
-    color: var(--olive) !important;
+    color: var(--white) !important;
     font-weight: 500;
 }
 
