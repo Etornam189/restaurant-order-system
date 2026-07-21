@@ -10,12 +10,24 @@ $order_id = $_GET['id'];
 $order = mysqli_query($conn, "SELECT * FROM orders WHERE id = '$order_id'");
 $order = mysqli_fetch_assoc($order);
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+if (isset($_POST['update_status'])) {
 
     $status = $_POST['order_status'];
 
     mysqli_query($conn, "UPDATE orders
                          SET order_status = '$status'
+                         WHERE id = '$order_id'");
+
+    header("Location: view_order.php?id=" . $order_id);
+    exit();
+}
+
+if (isset($_POST['update_payment'])) {
+
+    $payment = $_POST['payment_status'];
+
+    mysqli_query($conn, "UPDATE orders
+                         SET payment_status = '$payment'
                          WHERE id = '$order_id'");
 
     header("Location: view_order.php?id=" . $order_id);
@@ -51,6 +63,10 @@ $items = mysqli_query($conn, "
         Order Details
     </h2>
 
+    <a href="/restaurant-order-system/admin/orders.php" class="btn btn-secondary mb-3">
+        ← Back to Orders
+    </a>
+
     <div class="card">
         <div class="card-body">
 
@@ -62,9 +78,22 @@ $items = mysqli_query($conn, "
 
             <p><strong>Total:</strong> GHS <?= number_format($order['total_amount'],2); ?></p>
 
-            <p><strong>Order Status:</strong> <?= $order['order_status']; ?></p>
+            <p><strong>Order Status:</strong> 
+               <span class="badge
+                    <?= $order['order_status'] == 'Pending' ? 'bg-warning text-dark' : '' ?>
+                    <?= $order['order_status'] == 'Preparing' ? 'bg-info text-dark' : '' ?>
+                    <?= $order['order_status'] == 'Ready' ? 'bg-primary' : '' ?>
+                    <?= $order['order_status'] == 'Completed' ? 'bg-success' : '' ?>">
+                        <?= $order['order_status']; ?>
+                </span>
+            </p>
 
-            <p><strong>Payment Status:</strong> <?= $order['payment_status']; ?></p>
+            <p><strong>Payment Status:</strong> 
+                <span class="badge
+                    <?= $order['payment_status'] == 'Pending' ? 'bg-danger' : 'bg-success'; ?>">
+                        <?= $order['payment_status']; ?>
+                </span>
+            </p>
 
         </div>
     </div>
@@ -105,8 +134,46 @@ $items = mysqli_query($conn, "
 
                 </div>
 
-                <button type="submit" class="btn btn-primary">
+                <button type="submit" name="update_status" class="btn btn-primary">
                     Update Status
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+    <div class="card mt-4">
+
+        <div class="card-header">
+            <h5 class="mb-0">Update Payment Status</h5>
+        </div>
+
+        <div class="card-body">
+
+            <form method="POST">
+
+                <div class="mb-3">
+
+                    <label class="form-label">Payment Status</label>
+
+                    <select name="payment_status" class="form-select">
+
+                        <option value="Pending" <?= $order['payment_status'] == 'Pending' ? 'selected' : ''; ?>>
+                            Pending
+                        </option>
+
+                        <option value="Paid" <?= $order['payment_status'] == 'Paid' ? 'selected' : ''; ?>>
+                            Paid
+                        </option>
+
+                    </select>
+
+                </div>
+
+                <button type="submit" name="update_payment" class="btn btn-success">
+                    Update Payment
                 </button>
 
             </form>
