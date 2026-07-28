@@ -42,6 +42,11 @@
         </li>
 
 
+        <a href="/restaurant-order-system/admin/menu.php" class="nav-link">
+            Menu Management
+        </a>
+
+
     </ul>
 
 
