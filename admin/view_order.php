@@ -43,21 +43,24 @@ $items = mysqli_query($conn, "
         ON order_items.menu_item_id = menu_items.id
     WHERE order_items.order_id = '$order_id'
 ");
+
+include "includes/admin_auth.php";
+include "../includes/db.php";
+include "includes/admin_header.php";
+include "includes/admin_sidebar.php";
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>View Order | SAVORA Eatery</title>
+<div class="main">
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
+<header class="topbar">
 
-<body>
+    <h2 class="fw-bold">
+        Order Details
+    </h2>
 
-<div class="container py-5">
+</header>
+
+<div class="content">
 
     <h2 class="fw-bold mb-4">
         Order Details
@@ -232,5 +235,6 @@ $items = mysqli_query($conn, "
 
 </div>
 
-</body>
-</html>
+</div>
+
+<?php include "includes/admin_footer.php"; ?>

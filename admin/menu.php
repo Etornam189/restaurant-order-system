@@ -10,13 +10,20 @@ include "includes/admin_sidebar.php";
 
 
 
+<div class="main">
+
+<header class="topbar">
+
+    <h2 class="fw-bold">
+        Manage Menu
+    </h2>
+
+</header>
+
 <div class="content">
 
-<div class="orders-page">
+<div class="page-card">
 
-<h2 class="fw-bold mb-4">
-    Menu Management
-</h2>
 
     <?php
 
@@ -92,5 +99,6 @@ include "includes/admin_sidebar.php";
 
 </div>
 
-</body>
-</html>
+</div>
+
+<?php include "includes/admin_footer.php"; ?>

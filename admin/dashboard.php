@@ -86,9 +86,6 @@ $total_revenue = $revenue_result['total'] ?? 0;
 <div class="content">
 
 
-<div class="content">
-
-
 <div class="row g-4 mb-4">
 
 
